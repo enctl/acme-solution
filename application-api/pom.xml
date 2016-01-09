@@ -7,31 +7,16 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>acme-application</artifactId>
+    <artifactId>acme-application-api</artifactId>
     <packaging>jar</packaging>
 
-    <name>acme-application</name>
+    <name>acme-application-api</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>
-            <groupId>io.acme.solution</groupId>
-            <artifactId>acme-command</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.acme.solution</groupId>
-            <artifactId>acme-domain</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>io.acme.solution</groupId>
-            <artifactId>acme-infrastructure</artifactId>
-            <version>1.0-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.amqp</groupId>
-            <artifactId>spring-rabbit</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -40,6 +25,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.acme.solution</groupId>
+            <artifactId>acme-command</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 
