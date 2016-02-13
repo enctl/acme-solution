@@ -1,4 +1,4 @@
-package io.acme.solution.persistence.dao.model;
+package io.acme.solution.infrastructure.dao.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -12,6 +12,8 @@ import java.util.UUID;
  */
 @Document(collection = "events")
 public class PersistentEvent implements Comparable<PersistentEvent> {
+
+    private static final String MEMKEY_VERSION = "version";
 
     @Id
     private UUID id;
@@ -31,6 +33,8 @@ public class PersistentEvent implements Comparable<PersistentEvent> {
         this.version = version;
         this.eventType = eventType;
         this.entries = new HashMap<>(entries);
+
+        this.entries.put(MEMKEY_VERSION, this.version);
     }
 
     public UUID getId() {

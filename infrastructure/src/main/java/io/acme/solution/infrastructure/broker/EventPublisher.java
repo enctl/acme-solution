@@ -1,6 +1,6 @@
-package io.acme.solution.persistence.broker;
+package io.acme.solution.infrastructure.broker;
 
-import io.acme.solution.persistence.dao.model.PersistentEvent;
+import io.acme.solution.infrastructure.dao.model.PersistentEvent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -27,7 +27,7 @@ public class EventPublisher {
     public void publish(final Set<PersistentEvent> eventSet) {
 
         for (PersistentEvent currentEvent : eventSet) {
-            this.eventBusRabbitTemplate.convertAndSend(this.exchange, currentEvent.getEventType(), currentEvent);
+            this.eventBusRabbitTemplate.convertAndSend(this.exchange, currentEvent.getEventType(), currentEvent.getEntries());
         }
     }
 }

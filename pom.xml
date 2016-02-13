@@ -12,6 +12,8 @@
         <module>domain</module>
         <module>infrastructure</module>
         <module>application</module>
+        <module>query-api</module>
+        <module>query</module>
     </modules>
 
     <name>acme-parent</name>

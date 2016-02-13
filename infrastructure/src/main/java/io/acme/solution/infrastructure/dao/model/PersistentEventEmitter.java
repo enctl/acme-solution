@@ -1,4 +1,4 @@
-package io.acme.solution.persistence.dao.model;
+package io.acme.solution.infrastructure.dao.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

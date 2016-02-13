@@ -1,4 +1,4 @@
-package io.acme.solution.application.conf;
+package io.acme.solution.infrastructure.conf;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,7 +21,7 @@ import org.springframework.context.annotation.Primary;
 @Configuration
 public class EventBusConfigurer {
 
-    private static final Logger log = LoggerFactory.getLogger(CommandBusConfigurer.class);
+    private static final Logger log = LoggerFactory.getLogger(EventBusConfigurer.class);
 
     @Value("${event.bus.rabbit.host}")
     private String hostname;

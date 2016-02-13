@@ -1,6 +1,6 @@
-package io.acme.solution.persistence.dao;
+package io.acme.solution.infrastructure.dao;
 
-import io.acme.solution.persistence.dao.model.PersistentEvent;
+import io.acme.solution.infrastructure.dao.model.PersistentEvent;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

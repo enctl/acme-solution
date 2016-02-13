@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Unit testing for the domain entity named profile
@@ -21,7 +22,8 @@ public class ProfileTest {
 
     @Test
     public void testProfileRegistration() {
-        final Profile profile = new Profile(DATA_USERNAME, DATA_EMAIL, DATA_PASSWORD);
+        final UUID id = UUID.randomUUID();
+        final Profile profile = new Profile(id, DATA_USERNAME, DATA_EMAIL, DATA_PASSWORD);
         final Set<Event> events = profile.getChangeLog();
 
         Assert.assertNotNull(profile);
@@ -33,6 +35,7 @@ public class ProfileTest {
 
         Assert.assertNotNull(registrationEvent);
         Assert.assertEquals(1L, registrationEvent.getVersion().longValue());
+        Assert.assertEquals(id, profile.getId());
         Assert.assertEquals(profile.getId(), registrationEvent.getAggregateId());
         Assert.assertEquals(ProfileRegisteredEvent.class, registrationEvent.getClass());
         Assert.assertEquals(DATA_USERNAME, ((ProfileRegisteredEvent) registrationEvent).getUsername());
@@ -42,7 +45,8 @@ public class ProfileTest {
 
     @Test
     public void testMemento() {
-        final Profile profile = new Profile(DATA_USERNAME, DATA_EMAIL, DATA_PASSWORD);
+        final UUID id = UUID.randomUUID();
+        final Profile profile = new Profile(id, DATA_USERNAME, DATA_EMAIL, DATA_PASSWORD);
         AggregateMemento memento = profile.saveToMemento();
 
         Assert.assertNotNull(memento);
@@ -54,6 +58,7 @@ public class ProfileTest {
         profile.restoreFromMemento(memento);
 
         Assert.assertEquals(1L, profile.getVersion().longValue());
+        Assert.assertEquals(id, profile.getId());
         Assert.assertEquals(DATA_USERNAME, profile.getUsername());
         Assert.assertEquals(DATA_EMAIL, profile.getEmail());
         Assert.assertNotEquals(DATA_PASSWORD, profile.getHashedPassword());

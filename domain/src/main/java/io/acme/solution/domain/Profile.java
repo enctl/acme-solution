@@ -30,15 +30,10 @@ public class Profile extends BaseAggregate {
     private String email;
     private String hashedPassword;
 
-    public Profile(final String username, final String email, final String plainPassword) {
-        super();
-        this.registerHandlers();
-        this.apply(new ProfileRegisteredEvent(this.getId(), this.upgrade(), username, email, Profile.hashPassword(plainPassword)));
-    }
-
-    public Profile(final UUID id) {
+    public Profile(final UUID id, final String username, final String email, final String plainPassword) {
         super(id);
         this.registerHandlers();
+        this.apply(new ProfileRegisteredEvent(this.getId(), this.upgrade(), username, email, Profile.hashPassword(plainPassword)));
     }
 
     public Profile(final UUID id, final AggregateMemento memento) {

@@ -45,7 +45,7 @@ public class ProfileApplication {
     @RequestMapping(value = RESTKeys.Profile.REGISTRATION, method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<CommandPromise> registerProfile(@Valid @RequestBody final UserProfile profile) {
         final RegisterNewUserProfileCommand registerCommand = new RegisterNewUserProfileCommand(UUID.randomUUID(),
-                profile.getUsername(), profile.getEmail());
+                profile.getUsername(), profile.getEmail(), profile.getPassword());
 
         this.rabbitTemplate.convertAndSend(this.exchange, registerCommand.getClass().getSimpleName(), registerCommand);
         return new ResponseEntity<CommandPromise>(new CommandPromise(registerCommand.getId(), "Success!"), HttpStatus.OK);

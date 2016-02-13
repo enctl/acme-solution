@@ -1,14 +1,14 @@
-package io.acme.solution.persistence.repo;
+package io.acme.solution.infrastructure.repo;
 
 import io.acme.solution.domain.Event;
 import io.acme.solution.domain.Profile;
 import io.acme.solution.domain.api.repo.ProfileRepository;
-import io.acme.solution.persistence.broker.EventPublisher;
-import io.acme.solution.persistence.dao.EventDao;
-import io.acme.solution.persistence.dao.EventEmitterDao;
-import io.acme.solution.persistence.dao.SnapshotDao;
-import io.acme.solution.persistence.dao.model.PersistentEvent;
-import io.acme.solution.persistence.dao.model.PersistentEventEmitter;
+import io.acme.solution.infrastructure.broker.EventPublisher;
+import io.acme.solution.infrastructure.dao.EventDao;
+import io.acme.solution.infrastructure.dao.EventEmitterDao;
+import io.acme.solution.infrastructure.dao.SnapshotDao;
+import io.acme.solution.infrastructure.dao.model.PersistentEvent;
+import io.acme.solution.infrastructure.dao.model.PersistentEventEmitter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

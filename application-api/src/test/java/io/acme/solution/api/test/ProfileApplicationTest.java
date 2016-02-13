@@ -74,7 +74,7 @@ public class ProfileApplicationTest {
 
         try {
             final URL profileAppURL = new URL(this.base, RESTKeys.Profile.BASE + RESTKeys.Profile.REGISTRATION);
-            final UserProfile testProfile = new UserProfile("testname", "test@email.com");
+            final UserProfile testProfile = new UserProfile("testname", "test@email.com", "password");
             final MessageReceiver receiver = this.context.getBean(MessageReceiver.class);
             final ResponseEntity<CommandPromise> responseEntity = this.restTemplate.postForEntity(profileAppURL.toURI(),
                     testProfile, CommandPromise.class);

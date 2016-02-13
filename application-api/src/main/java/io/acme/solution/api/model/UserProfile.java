@@ -10,15 +10,18 @@ public class UserProfile {
 
     private String username;
     private String email;
+    private String password;
 
     public UserProfile() {
         this.username = "";
         this.email = "";
+        this.password = "";
     }
 
-    public UserProfile(final String username, final String email) {
+    public UserProfile(final String username, final String email, final String password) {
         this.username = username;
         this.email = email;
+        this.password = password;
     }
 
     public String getUsername() {
@@ -29,6 +32,9 @@ public class UserProfile {
         return email;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
     @Override
     public String toString() {
