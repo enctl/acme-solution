@@ -1,12 +1,16 @@
 package io.acme.solution.query.handler;
 
+import io.acme.solution.query.dao.ProfileCredentialsDao;
 import io.acme.solution.query.dao.ProfileDao;
 import io.acme.solution.query.messaging.EventHandler;
+import io.acme.solution.query.model.ProfileCredentials;
+import io.acme.solution.query.model.QueryableProfile;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * Profile registered event handler
@@ -14,15 +18,44 @@ import java.util.Map;
 public class ProfileRegisteredEventHandler implements EventHandler {
 
     private static final String INTEREST = "ProfileRegisteredEvent";
+
+    private static final String MAPKEY_USERNAME = "username";
+    private static final String MAPKEY_EMAIL = "email";
+    private static final String MAPKEY_HASHEDPASS = "hashedPassword";
+
     private static final Logger log = LoggerFactory.getLogger(ProfileRegisteredEventHandler.class);
 
     @Autowired
     private ProfileDao profileDao;
 
+    @Autowired
+    private ProfileCredentialsDao profileCredentialsDao;
+
     @Override
-    public void handleMessage(Map<String, Object> eventEntries) {
-        log.info("Received repository event" + eventEntries);
-        log.info("Inject repository is" + this.profileDao);
+    public void handleMessage(final Map<String, Object> eventEntries) {
+
+        if (eventEntries.containsKey(MEMKEY_AGGREGATE_ID)) {
+            final UUID id = UUID.fromString(eventEntries.get(MEMKEY_AGGREGATE_ID).toString());
+            final Long version = eventEntries.get(MEMKEY_VERSION) != null ? Long.parseLong(eventEntries.get(MEMKEY_VERSION).toString()) : null;
+            final String username = eventEntries.get(MAPKEY_USERNAME) != null ? eventEntries.get(MAPKEY_USERNAME).toString() : null;
+            final String email = eventEntries.get(MAPKEY_EMAIL) != null ? eventEntries.get(MAPKEY_EMAIL).toString() : null;
+            final String hashedPassword = eventEntries.get(MAPKEY_HASHEDPASS) != null ? eventEntries.get(MAPKEY_HASHEDPASS).toString() : null;
+
+
+            if (id != null && username != null && version != null && email != null && hashedPassword != null) {
+                final QueryableProfile profile = new QueryableProfile(id, version, username, email);
+                final ProfileCredentials credentials = new ProfileCredentials(id, hashedPassword);
+
+                this.profileDao.save(profile);
+                this.profileCredentialsDao.save(credentials);
+
+                log.info("New profile registered");
+            } else {
+                log.trace("Profile discarded due to missing mandatory attributes in the event entries");
+            }
+        } else {
+            log.trace("Profile discarded due to missing aggregateId in the event entries");
+        }
     }
 
     @Override

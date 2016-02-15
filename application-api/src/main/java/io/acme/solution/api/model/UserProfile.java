@@ -7,6 +7,7 @@ public class UserProfile {
 
     public static final String FIELD_USERNAME = "username";
     public static final String FIELD_EMAIL = "email";
+    public static final String FIELD_PASSWORD = "password";
 
     private String username;
     private String email;

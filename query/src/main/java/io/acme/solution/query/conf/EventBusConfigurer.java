@@ -84,14 +84,14 @@ public class EventBusConfigurer {
     }
 
     @Bean
-    public MessageConverter evenBusMessageConverter() {
+    public MessageConverter eventBusMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
     @Bean
-    public ConnectionFactory evenBusConnectionFactory() {
+    public ConnectionFactory eventBusConnectionFactory() {
 
-        log.info("Creating subscriber event bus connection on hostname: {" + this.hostname + "}");
+        log.info("Creating query event bus connection on hostname: {" + this.hostname + "}");
 
         final CachingConnectionFactory connectionFactory = new CachingConnectionFactory(this.hostname, this.port);
         connectionFactory.setUsername(this.username);
@@ -104,7 +104,7 @@ public class EventBusConfigurer {
     @Autowired
     public RabbitAdmin eventBusRabbitAdmin(final ConnectionFactory eventBusConnectionFactory) {
 
-        log.info("Creating subscribing event bus RabbitMQ administrator template");
+        log.info("Creating query event bus RabbitMQ administrator template");
         return new RabbitAdmin(eventBusConnectionFactory);
     }
 
@@ -112,7 +112,7 @@ public class EventBusConfigurer {
     @Autowired
     public RabbitTemplate eventBusRabbitTemplate(final ConnectionFactory eventBusConnectionFactory, final MessageConverter eventBusMessageConverter) {
 
-        log.info("Creating subscriber event bus RabbitMQ template with a custom JSON converter");
+        log.info("Creating query event bus RabbitMQ template with a custom JSON converter");
         final RabbitTemplate rabbitTemplate = new RabbitTemplate(eventBusConnectionFactory);
         rabbitTemplate.setMessageConverter(eventBusMessageConverter);
 
@@ -122,7 +122,7 @@ public class EventBusConfigurer {
     @Bean
     public TopicExchange eventExchange() {
 
-        log.info("Creating subscriber event bus topic exchange with the name : {" + this.exchange + "}");
+        log.info("Creating query event bus topic exchange with the name : {" + this.exchange + "}");
         return new TopicExchange(this.exchange, true, false);
     }
 }

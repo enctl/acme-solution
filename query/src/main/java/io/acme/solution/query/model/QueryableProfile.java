@@ -13,6 +13,7 @@ public class QueryableProfile {
 
     @Id
     private UUID id;
+    private Long version;
     private String username;
     private String email;
 
@@ -20,10 +21,11 @@ public class QueryableProfile {
 
     }
 
-    public QueryableProfile(final UUID id, final String username, final String email) {
+    public QueryableProfile(final UUID id, final Long version, final String username, final String email) {
         this.id = id;
         this.username = username;
         this.email = email;
+        this.version = version;
     }
 
     public UUID getId() {
@@ -36,5 +38,9 @@ public class QueryableProfile {
 
     public String getEmail() {
         return email;
+    }
+
+    public Long getVersion() {
+        return version;
     }
 }

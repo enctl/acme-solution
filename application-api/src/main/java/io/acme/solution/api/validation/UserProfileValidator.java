@@ -26,6 +26,7 @@ public class UserProfileValidator implements Validator {
     public void validate(final Object profile, final Errors errors) {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, UserProfile.FIELD_USERNAME, MessageKeys.UserProfile.EMPTY_USERNAME);
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, UserProfile.FIELD_EMAIL, MessageKeys.UserProfile.EMPTY_EMAIL);
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, UserProfile.FIELD_PASSWORD, MessageKeys.UserProfile.EMPTY_PASSWORD);
         this.rejectIfNotEmail((UserProfile) profile, errors);
         this.rejectIfNotUsername((UserProfile) profile, errors);
     }

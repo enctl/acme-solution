@@ -13,8 +13,6 @@ import java.util.UUID;
 @Document(collection = "events")
 public class PersistentEvent implements Comparable<PersistentEvent> {
 
-    private static final String MEMKEY_VERSION = "version";
-
     @Id
     private UUID id;
     private UUID aggregateId;
@@ -33,8 +31,6 @@ public class PersistentEvent implements Comparable<PersistentEvent> {
         this.version = version;
         this.eventType = eventType;
         this.entries = new HashMap<>(entries);
-
-        this.entries.put(MEMKEY_VERSION, this.version);
     }
 
     public UUID getId() {

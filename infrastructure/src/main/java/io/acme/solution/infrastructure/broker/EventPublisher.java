@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -15,6 +17,10 @@ import java.util.Set;
  */
 @Component
 public class EventPublisher {
+
+    private static final String MEMKEY_ID = "id";
+    private static final String MEMKEY_AGGREGATE_ID = "aggregateId";
+    private static final String MEMKEY_VERSION = "version";
 
     private static final Logger log = LoggerFactory.getLogger(EventPublisher.class);
 
@@ -26,8 +32,16 @@ public class EventPublisher {
 
     public void publish(final Set<PersistentEvent> eventSet) {
 
+        Map<String, Object> currentEntires = null;
+
         for (PersistentEvent currentEvent : eventSet) {
-            this.eventBusRabbitTemplate.convertAndSend(this.exchange, currentEvent.getEventType(), currentEvent.getEntries());
+            currentEntires = new HashMap<>(currentEvent.getEntries());
+
+            currentEntires.put(MEMKEY_VERSION, currentEvent.getVersion());
+            currentEntires.put(MEMKEY_ID, currentEvent.getId());
+            currentEntires.put(MEMKEY_AGGREGATE_ID, currentEvent.getAggregateId());
+
+            this.eventBusRabbitTemplate.convertAndSend(this.exchange, currentEvent.getEventType(), currentEntires);
         }
     }
 }

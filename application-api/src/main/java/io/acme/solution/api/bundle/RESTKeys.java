@@ -7,7 +7,7 @@ public final class RESTKeys {
 
     public static final class Profile {
 
-        public static final String BASE = "/profiles/";
+        public static final String BASE = "/profiles";
         public static final String REGISTRATION = "/registrations";
 
         private Profile() {

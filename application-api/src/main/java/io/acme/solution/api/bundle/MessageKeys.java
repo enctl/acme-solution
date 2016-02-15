@@ -9,6 +9,7 @@ public final class MessageKeys {
 
         public static final String EMPTY_EMAIL = "user.profile.field.email.empty";
         public static final String EMPTY_USERNAME = "user.profile.field.username.empty";
+        public static final String EMPTY_PASSWORD = "user.profile.field.password.empty";
         public static final String INVALID_EMAIL = "user.profile.field.email.invalid";
         public static final String INVALID_USERNAME = "user.profile.field.username.invalid";
 
